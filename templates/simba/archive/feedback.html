@@ -1,0 +1,18 @@
+{% if feedback %}
+<div class="row">
+<div class="col-sm-12 col-md-12 col-ld-12">
+
+{%if feedback == 'success' %}
+<div class="alert alert-success alert-dismissible fade in" role="alert">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4>Modifica avvenuta con successo</h4>
+</div>
+{% elif feedback == 'noaction' %}
+<div class="alert alert-warning alert-dismissible fade in" role="alert">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4>Errore - Nessuna modifica effettuata</h4>
+</div>
+{% endif %}
+</div>
+</div>
+{% endif %}

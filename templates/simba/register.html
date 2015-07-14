@@ -1,0 +1,67 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Simba</title>
+ 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script>
+  $(function() {
+    $( "#id_birthdate" ).datepicker({
+         dateFormat: "yy-mm-dd",
+         changeMonth: true,
+         changeYear: true,
+         yearRange:'1980:2000',
+         defaultDate:"1993-11-20"
+    });
+  });
+</script>
+<script>
+$('#id_birthdate').datepicker('setDate', new Date($("#id_birthdate").text().replace(/\-/g, ',')));
+</script>
+</head>
+
+
+	<link rel="stylesheet" href="{% static "style/datepicker.css" %}" /> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+
+    <body>
+        <h1>Join on simba</h1>
+
+        {% if registered %}
+        simba says: <strong>thank you for registering!</strong>
+        <a href="/simba/">Return to the homepage.</a><br />
+        {% else %}
+        simba says: <strong>{{ user_email }}</strong><br />
+
+        <form id="user_form" method="post" action="/simba/register/"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Display each form. The as_p method wraps each element in a paragraph
+                 (<p>) element. This ensures each element appears on a new line,
+                 making everything look neater. -->
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
+    	
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Register" />
+        </form>
+
+        {% endif %}
+
+
+ <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+    </body>
+</html>

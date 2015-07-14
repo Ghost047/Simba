@@ -1,0 +1,31 @@
+<div class="col-ld-2 col-sm-3 col-md-2 sidebar">
+<div class="right_sbar">
+<div class="row">                
+<div class="col-ld-8 col-sm-8 col-sm-offset-1 col-md-8 col-md-offset-1">
+<!--<img src="{{ profile.avatar }}" alt="simba" class="img-circle"> -->
+<img src="{{ profile.avatar }}" alt="{{user.username}}" class="img-thumbnail">
+</div>
+</div>
+<div class="row"><p> </p></div>
+<div class="row">                
+<div class="col-ld-12 col-sm-12 col-md-12 ">
+<h3>  {{ user.first_name }}  {{ user.last_name }} </h3>
+<ul class="list-group">
+<li class="list-group-item ">Role : {{ profile.role }}</li>
+{% if profile.status == True %}
+<li class="list-group-item list-group-item-success">Status: Active</li>
+{% else %}
+<li class="list-group-item list-group-item-danger">Status: Dsabled</li>
+{% endif %}
+<li class="list-group-item">Lives in : {{ profile.lives }} </li>
+{% if profile.wifi_access == "0" %}
+<li class="list-group-item list-group-item-warning">Wi-Fi: Disabled</li>
+{% else %}  			
+<li class="list-group-item list-group-item-info">Wi-Fi: {{profile.wifi_access}} </li>
+{% endif %}
+<li class="list-group-item ">Joined : {{ user.date_joined }}  </li>
+</ul>
+</div>
+</div>
+</div>
+</div>

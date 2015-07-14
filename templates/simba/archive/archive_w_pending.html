@@ -1,0 +1,150 @@
+{% extends 'simba/base.html' %}
+
+{% block title %}
+{{ user.username }}
+{% endblock %}
+ 
+{% block body_block %}
+
+<div class="row">
+	<div class="dash_page">
+	<div class="col-ld-2 col-sm-3 col-md-2 sidebar">
+		<div class="right_sbar">
+			<div class="row">                
+			<div class="col-ld-12 col-sm-12 col-md-12 ">
+			<h3>  Members archive</h3>
+			<h5>  User: {{ user.first_name }}  {{ user.last_name }} </h5>
+			<div class="list-group">
+ 			<a href="{% url 'archive' 'all' %}" class="list-group-item ">All members</a>
+	 		<a href="{% url 'archive' 'active' %}" class="list-group-item">Active Members</a>
+ 			<a href="{% url 'archive' 'pending' %}" class="list-group-item ">Pending Members <span class="badge">{{ n_waiting }}</span></a>
+ 			<a href="{% url 'archive' 'wifi' %}" class="list-group-item active">Wi-Fi Management</a>
+ 			<a href="{% url 'board'  %}" class="list-group-item ">Board</a>
+			<a href="{% url 'invitations'  %}" class="list-group-item ">Send an invite (we're still in beta)</a>
+ 			</div>
+			
+			</div>
+			</div>
+			
+		</div>
+	</div> 
+	<div class="col-sm-12 col-md-912 col-ld-12">
+	   	<div class="dashboard">
+			<div class="row">
+			<div class="col-sm-12 col-md-12 col-ld-12">
+			<ul class="nav nav-pills navbar-right" role="tablist">
+  			<li role="presentation" ><a href="{% url 'dashboard' %}">Dashboard </a></li>
+  			<li role="presentation"><a href="#">Task Manager</a></li>
+  			<li role="presentation" class=" active"><a href="{% url 'archive' 'all' %}">Archive </a></li>
+			</ul>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-sm-12 col-md-12 col-ld-12">
+			{% include 'simba/archive/form_search.html' %}
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-sm-1 col-md-1 col-md-offset-11 col-sm-offset-11"> 
+			<p> </p>
+			</div>
+			</div>
+
+			
+			
+			<div class="row">
+			<div class="col-md-12 col-sm-12 col-ld-12">
+			<div class="panel panel-primary">
+  			<div class="panel-heading">{{ tab_title }}</div>
+			<table class="table">
+			<thead>
+            <tr>
+			<th> </th>
+            <th>#</th>
+            <th>Username</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+			<th>Ruolo</th>
+			<th>Profilo</th>
+			<th>Wi-Fi</th>
+			<th>Task</th>
+			<th>Modulo</th>
+			</tr>
+        	</thead>
+			<tbody>
+			{% for profile in profiles %}
+    			<tr>
+				{% if profile.status == True %}
+            		<th class="list-group-item-success"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </th>
+				{% else %}
+            		<th class="list-group-item-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </th>
+				{% endif %}
+            	<th>{{ profile.user.id }}</th>
+				<td>{{ profile.user.username }}</td>
+            	<td>{{ profile.user.first_name }}</td>
+            	<td>{{ profile.user.last_name }}</td>
+				<td>{{ profile.role.name }}</td>
+            	<td> <a alt ="User's profile"href="#"> 
+				<center><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a> </center>
+			 	</td>
+				{% if profile.wifi_access != "0" %}
+            		<td class="list-group-item-success"><center> <span class="glyphicon glyphicon-signal" aria-hidden="true"></span></center> </td>
+				{% else %}
+					<td class="list-group-item-danger">   </td>
+				{% endif %}
+				<td> <a alt ="Give a task"href="#"> 
+				<center><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></a> </center>
+			 	</td>
+				<td> <a alt ="Give a task"href="#"> 
+				<center><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a> </center>
+			 	</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+			</table>
+			</div>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-md-12 col-sm-12 col-ld-12">
+			Mostrati 25 utenti per pagina
+			</div>
+			</div>
+
+			<nav>
+ 		 	<ul class="pager">
+			{% if profiles.has_previous %}
+			<li class="previous "> <a href="?page={{ profiles.previous_page_number }}"><span aria-hidden="true">&larr;</span> Prev.</a></li>
+			{% else %}
+			<li class="previous disabled"> <a><span aria-hidden="true">&larr;</span> Prev.</a></li>
+            {% endif %}
+    		        
+            Page {{ profiles.number }} of {{ profiles.paginator.num_pages }}.
+        	
+			{% if profiles.has_next %}
+            <li class="next"><a href="?page={{ profiles.next_page_number }}">Next <span aria-hidden="true">&rarr;</span></a></li>Successiva</a>
+			{% else %}
+			<li class="next disabled"> <a><span aria-hidden="true">&larr;</span> Next</a></li>
+            {% endif %}
+    		
+  			</ul>
+			</nav>
+        
+
+
+
+      
+
+</div>
+
+			</div>
+
+			
+                </div>
+        </div></div>
+</div>
+
+{% endblock %}
+
+
+

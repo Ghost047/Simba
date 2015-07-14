@@ -1,0 +1,101 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic,700italic);
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px;
+}
+.form_login {
+    text-align: center;
+    padding-bottom: 5%;
+    border-style: solid;
+   
+
+-webkit-box-shadow: -3px 6px 4px 0px rgba(42, 40, 50, 0.87);
+-moz-box-shadow:    -3px 6px 4px 0px rgba(42, 40, 50, 0.87);
+box-shadow:         -3px 6px 4px 0px rgba(42, 40, 50, 0.87);
+-webkit-border-radius: 7px;
+-moz-border-radius: 7px;
+border-radius: 7px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 35px auto;
+}
+.form-signin .form-signin-heading {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+.footer_d {
+	position: absolute;
+	width:100%;
+	background-color:#333;
+	height: 45px;
+	line-height:3em; 
+	text-align:right;
+	right: 0;
+	bottom: 0;
+	color: #FFFFFF;
+	font-family: 'Ubuntu Mono';
+	position:absolute;
+}
+
+.dash_page {
+	margin-top: 50px;
+}
+
+.right_side_border {
+	border-right-style: solid;
+	border-right-width: 2px;
+	border-right-color: #0099CC;
+
+}
+.right_sbar {
+
+	font-family: 'Ubuntu Mono';
+	padding-bottom: 11%;
+	padding-top: 11%;
+}
+
+.dashboardf {
+	position: absolute;
+	margin-top: 2%;	
+	font-family: 'Ubuntu Mono';
+}
+
+.info_active {
+	color: green;
+	display: inline;
+}
+
+.info_non_active {
+	color:red;
+	display: inline;
+}

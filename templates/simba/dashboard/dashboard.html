@@ -1,0 +1,66 @@
+{% extends 'simba/base.html' %}
+
+{% block title %}
+{{ user.username }}
+{% endblock %}
+ 
+{% block body_block %}
+
+<div class="row">
+	<div class="dash_page">
+	{% include 'simba/dashboard/sidebar.html' %}
+	<div class="col-sm-9 col-md-10 col-ld-offset-2 col-sm-offset-3 col-md-offset-2 col-ld-10 col-ld-offset-2">
+	   	<div class="dashboard">
+			<div class="row">
+			<div class="col-sm-12 col-md-12 col-ld-12">
+			<ul class="nav nav-pills navbar-right" role="tablist"> 
+  			<li role="presentation" class="active"><a href="#">Dashboard </a></li>
+  			<li role="presentation"><a href="#">Task Manager</a></li>
+  			<li role="presentation"><a href="{% url 'archive' 'all' %}">Archive </a></li>
+			</ul>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-sm-1 col-md-1 col-md-offset-11 col-sm-offset-11"> 
+			<p> </p>
+			</div>
+			</div>
+
+				
+	
+			{% if profile.status == 0 %}
+			<div class="row">
+			<div class="col-sm-12 col-md-12 col-ld-12">
+			<div class="alert alert-danger alert-dismissible fade in" role="alert">
+      			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     			<h4>Houston we've got an error! Il tuo account è disabilitato</h4>
+    			<p>Stampa il modulo precompilato, firmalo e consegnalo in segreteria per godere dei servizi offerti da BEST Napoli.</p>
+      			<p>Il tuo account sarà cancellato se non consegnerai il modulo entro sette giorni a partire dalla registrazione. </p><p>
+     			<a href="modulo"><button type="button" class="btn btn-danger">
+			<span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"> </span> Download del modulo </button></a>
+      		
+     			 </p>
+  			 </div>
+ 			</div>
+			
+ 			</div>
+			{% endif %}
+			
+			{% include 'simba/dashboard/taskman.html' %}
+			{% include 'simba/dashboard/evman.html' %}
+			{% include 'simba/dashboard/spreadman.html' %}
+			{% include 'simba/dashboard/funman.html' %}
+
+
+
+			</div>
+
+			
+                </div>
+        </div></div>
+</div>
+
+{% endblock %}
+
+
+

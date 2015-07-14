@@ -1,0 +1,184 @@
+{% extends 'simba/base.html' %}
+
+{% block title %}
+{{ user.username }}
+{% endblock %}
+ 
+{% block body_block %}
+
+<div class="row">
+	<div class="dash_page">
+	<div class="col-ld-2 col-sm-3 col-md-2 sidebar">
+		<div class="right_sbar">
+			<div class="row">                
+			<div class="col-ld-12 col-sm-12 col-md-12 ">
+			<h3>  Members archive</h3>
+			<h5>  User: {{ user.first_name }}  {{ user.last_name }} </h5>
+			<div class="list-group">
+ 			<a href="{% url 'archive' 'all' %}" class="list-group-item ">All members</a>
+	 		<a href="{% url 'archive' 'active' %}" class="list-group-item ">Active Members</a>
+ 			<a href="{% url 'archive' 'pending' %}" class="list-group-item ">Pending Members <span class="badge">{{ n_waiting }}</span></a>
+ 			<a href="{% url 'archive' 'wifi' %}" class="list-group-item ">Wi-Fi Management</a>
+ 			<a href="{% url 'board'  %}" class="list-group-item active">Board</a>
+			<a href="{% url 'invitations'  %}" class="list-group-item ">Send an invite (we're still in beta)</a>
+ 			</div>
+			
+			</div>
+			</div>
+			
+		</div>
+	</div> 
+	<div class="col-sm-12 col-md-912 col-ld-12">
+	   	<div class="dashboard">
+			<div class="row">
+			<div class="col-sm-12 col-md-12 col-ld-12">
+			<ul class="nav nav-pills navbar-right" role="tablist">
+  			<li role="presentation" ><a href="{% url 'dashboard' %}">Dashboard </a></li>
+  			<li role="presentation"><a href="#">Task Manager</a></li>
+  			<li role="presentation" class=" active"><a href="{% url 'archive' 'all' %}">Archive </a></li>
+			</ul>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-sm-12 col-md-12 col-ld-12">
+			{% include 'simba/archive/form_search.html' %}
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-sm-1 col-md-1 col-md-offset-11 col-sm-offset-11"> 
+			<p> </p>
+			</div>
+			</div>
+	<div class="row">
+			<div class="col-md-6 col-sm-6 col-ld-6">
+			<div class="panel panel-primary">
+  			<div class="panel-heading">Ruoli esistenti in Best Napoli</div>
+			<table class="table">
+			<thead>
+            		<tr>
+			<th>Nome</th>
+			<th>Label</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for role in roles %}
+			<tr>
+			<td>{{ role.name }}</td>	
+			{% if role.label == 'Board' %}	
+				<td><span class="label label-info"> {{ role.label }}</span></td>
+			{% else %}
+				<td><span class="label label-default"> {{ role.label }}</span></td>
+			{% endif %}
+			{% endfor %}
+			</tbody>			
+			</table>
+			</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-ld-6">
+			<div class="panel panel-primary">
+  			<div class="panel-heading">Crea un nuovo ruolo {{ test }}</div>
+			 <div class="panel-body">
+				
+			  <form  class="form-inline" method="post" action="/simba/board/" enctype="multipart/form-data">
+			<div class="form-group">
+            {% csrf_token %}
+
+           
+            {{form.as_p }}
+
+</div>
+    	
+            <!-- Provide a button to click to submit the form. -->
+            <input class="btn btn-default pull-right" type="submit" name="submit" value="Aggiorna" />
+        </form>
+
+			</div>
+
+			</div>
+			</div>
+			</div>	
+			
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-ld-12">
+			<div class="panel panel-primary">
+  			<div class="panel-heading">{{ tab_title }}</div>
+			<table class="table">
+			<thead>
+            <tr>
+			
+           
+            <th>Username</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+			
+			<th>Ruolo</th>
+<th> </th>
+			</tr>
+        	</thead>
+			<tbody>
+			{% for profile in boardies %}
+    			<tr>
+				
+            	
+				<td>{{ profile.user.username }}</td>
+            	<td>{{ profile.user.first_name }}</td>
+            	<td>{{ profile.user.last_name }}</td>
+            	
+            	<td><span class="label label-info"> {{ profile.role.name}} </span></td>
+				<td>
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{ profile.user.id }}" data-whatever="{{ profile.user.username }}">Cancella</button>
+				
+				</center></td>
+				</tr>
+			{% endfor %}
+			</tbody>
+			</table>
+			</div>
+			</div>
+			</div>	
+			
+
+
+			<div class="row">
+			<div class="col-md-12 col-sm-12 col-ld-12">
+			Mostrati 25 utenti per pagina
+			</div>
+			</div>
+
+			<nav>
+ 		 	<ul class="pager">
+			{% if boardie.member.has_previous %}
+			<li class="previous "> <a href="?page={{ boardie.member.previous_page_number }}"><span aria-hidden="true">&larr;</span> Prev.</a></li>
+			{% else %}
+			<li class="previous disabled"> <a><span aria-hidden="true">&larr;</span> Prev.</a></li>
+            {% endif %}
+    		        
+            Page {{ boardie.member.number }} of {{ boardie.member.paginator.num_pages }}.
+        	
+			{% if boardie.member.has_next %}
+            <li class="next"><a href="?page={{ boardie.member.next_page_number }}">Next <span aria-hidden="true">&rarr;</span></a></li>Successiva</a>
+			{% else %}
+			<li class="next disabled"> <a><span aria-hidden="true">&larr;</span> Next</a></li>
+            {% endif %}
+    		
+  			</ul>
+			</nav>
+        
+
+
+
+      
+
+</div>
+
+			</div>
+
+			
+                </div>
+        </div></div>
+</div>
+
+{% endblock %}
+
+
+
